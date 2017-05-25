@@ -21,8 +21,14 @@ make
 ```
 
 ### Run 
-* To run using the in, out, err, etc. directories included in the repository, run `./run_with_defaults`
-* To run using the same as above, but also `mv test_data/* in/*`, run `./run_with_defaults test_data`
+* To run using the in, out, err, etc. directories included in the repository, run 
+```
+./run_with_defaults
+```
+* To run using the same as above, but also move some testing data into the `in` directory:
+```
+mv test_data/* in/*`, run `./run_with_defaults test_data
+```
 * To run using directories you specify:
 ```
 bin/fileconverter -alsologtostderr -completed $PWD/done -errors $PWD/err -input $PWD/in -output $PWD/out -log_dir $PWD/log
