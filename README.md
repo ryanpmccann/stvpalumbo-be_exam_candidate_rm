@@ -56,5 +56,6 @@ bin/fileconverter -alsologtostderr -completed $PWD/done -errors $PWD/err -input 
 Some things I didn't get to that I normally would:
 1. When the application starts up, any files in `-input` directory should be processed.
 1. Use a configuration file.  Or better, something like github.com/spf13/viper which is a very nice configuration solution and add a yaml or json config file.
+1. More test coverage and make it more testable.
 1. Better dependency management.  This Makefile always pulls the latest commit from github.  
 1. Better docs, examples, more configurability. 
