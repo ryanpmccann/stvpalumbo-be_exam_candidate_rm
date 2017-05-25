@@ -1,0 +1,4 @@
+#!/bin/bash
+
+rm out/* err/*
+mv in/test* test_data
