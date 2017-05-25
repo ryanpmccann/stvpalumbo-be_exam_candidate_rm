@@ -14,11 +14,19 @@ This repo contains an exercise intended for Back-End Engineers.
 1. This exercise is meant to showcase how you work. With consideration to the time limit, do your best to treat it like a production system.
 
 ## How-To
-1. Build
+### Build
+```
+make
+```
     * `make` will pull dependencies and build the binary
-1. Run 
+
+### Run 
     * To run using the in, out, err, etc. directories included in the repository, run `./run_with_defaults`
     * To run using the same as above, but also `mv test_data/* in/*`, run `./run_with_defaults test_data`
+    * To run using directories you specify:
+```
+bin/fileconverter -alsologtostderr -completed $PWD/done -errors $PWD/err -input $PWD/in -output $PWD/out -log_dir $PWD/log
+```
 
 ## Assumptions
 1. Required: Go 1.8+
