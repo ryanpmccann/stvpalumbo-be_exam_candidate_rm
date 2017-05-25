@@ -20,6 +20,12 @@ This repo contains an exercise intended for Back-End Engineers.
 make
 ```
 
+### Run Tests
+* `make test` will run go test 
+```
+make test
+```
+
 ### Run 
 * To run using the in, out, err, etc. directories included in the repository, run 
 ```

@@ -23,9 +23,9 @@ clean:
 	@rm -rf $(REPOROOT)/src/golang.org
 
 .PHONY: test
-test: state_server_test 
+test: fileconverter_test 
 
-state_server_test fileconverter: $(REPOROOT)/bin/get_deps report_go_version
+fileconverter_test fileconverter: $(REPOROOT)/bin/get_deps report_go_version
 
 $(REPOROOT)/bin/get_deps:
 	$(GOCMD) get github.com/fsnotify/fsnotify
@@ -36,7 +36,7 @@ $(REPOROOT)/bin/get_deps:
 report_go_version:
 	@echo "current go version:"; $(GOCMD) version
 
-state_server_test:
+fileconverter_test:
 	cd $(REPOROOT)/src/fileconverter; $(GOCMD) test
 
 fileconverter:
