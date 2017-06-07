@@ -90,7 +90,7 @@ func (c *csvFileProcessor) isAlreadyProcessed() bool {
 // handling the input files and processing them according to specification.
 func (c *csvFileProcessor) Process() {
 	if c.isAlreadyProcessed() {
-		glog.Errorf("new file: %s is already processed.", c.InputFilePath)
+		glog.Errorf("file: %s is already processed.", c.InputFilePath)
 		return
 	}
 

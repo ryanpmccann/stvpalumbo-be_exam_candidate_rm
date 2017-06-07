@@ -2,8 +2,11 @@ package main
 
 import (
 	"flag"
+	"io/ioutil"
 	"os"
 	"os/signal"
+	"path/filepath"
+	"strings"
 	"syscall"
 
 	"github.com/fsnotify/fsnotify"
@@ -89,14 +92,24 @@ func watchForNewInput(inPath string, outPath string, errPath string, complPath s
 
 // processExistingInput should process all files in the input
 // directory when the application first starts
-func processExistingInput(inputPath string) {
-	// I ran out of time.
-	//
+func processExistingInput(inPath string, outPath string, errPath string, complPath string) {
+	files, err := ioutil.ReadDir(inPath)
+	if err != nil {
+		glog.Fatal(err)
+	}
 
-	// pseudocode:
-	// for file in inputPath/*
-	// 		processor := NewFileProcessor(...)
-	//		go processor.Process()
+	for _, file := range files {
+		if !strings.HasPrefix(file.Name(), ".") {
+			inFile := filepath.Join(inPath, file.Name())
+			glog.Infof("processing existing file: %s", inFile)
+			processor, err := NewFileProcessor(inFile, outPath, errPath, complPath)
+			if err != nil {
+				glog.Error(err)
+				continue
+			}
+			go processor.Process()
+		}
+	}
 }
 
 func main() {
@@ -119,7 +132,7 @@ func main() {
 	}
 
 	glog.Info("using input directory: ", inputPath)
-	processExistingInput(inputPath)
+	processExistingInput(inputPath, outputPath, errorPath, completedPath)
 	// watch the input directory
 	// blocks until process receives appropriate signal
 	watchForNewInput(inputPath, outputPath, errorPath, completedPath)
