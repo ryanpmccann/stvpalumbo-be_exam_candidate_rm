@@ -51,10 +51,10 @@ bin/fileconverter -alsologtostderr -completed $PWD/done -errors $PWD/err -input 
 1. Assuming that 8 digit `INTERNAL_ID` can be 1 to 8 digits
 1. Field values cannot contain commas or new lines
 1. Assuming single byte characters for simplicy sake.  Otherwise, name validation of the 15 character limit has to count runes and handle special cases. 
+1. When the application starts up, any files in `-input` directory should be processed.
 
 ## Up Next
 Some things I didn't get to that I normally would:
-1. When the application starts up, any files in `-input` directory should be processed.
 1. Use a configuration file.  Or better, something like github.com/spf13/viper which is a very nice configuration solution and add a yaml or json config file.
 1. More test coverage and make it more testable.
 1. Better dependency management.  This Makefile always pulls the latest commit from github.  
