@@ -1,0 +1,25 @@
+#!/bin/bash
+
+
+INDIR="$PWD/in"
+OUTDIR="$PWD/out"
+ERRDIR="$PWD/err"
+DONEDIR="$PWD/done"
+LOGDIR="$PWD/log"
+
+MoveFiles() 
+{
+    local dir=$1
+    sleep 3 # little hack for the script
+    echo moving files now  "$(date)"
+    mv $dir/* $INDIR/
+}
+
+if [ "$#" -eq 1 ]
+then
+    
+    MoveFiles $1 &
+fi
+
+bin/fileconverter -alsologtostderr -input $INDIR -output $OUTDIR -errors $ERRDIR -completed $DONEDIR -log_dir $LOGDIR
+
