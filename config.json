@@ -1,0 +1,6 @@
+{
+    "input_path" : "./in",
+    "output_path" : "./out",
+    "error_path" : "./err",
+    "completed_path" : "./done"
+}
