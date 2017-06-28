@@ -1,10 +1,6 @@
 #!/bin/bash
 
 
-INDIR="$PWD/in"
-OUTDIR="$PWD/out"
-ERRDIR="$PWD/err"
-DONEDIR="$PWD/done"
 LOGDIR="$PWD/log"
 
 MoveFiles() 
@@ -21,5 +17,5 @@ then
     MoveFiles $1 &
 fi
 
-bin/fileconverter -alsologtostderr -input $INDIR -output $OUTDIR -errors $ERRDIR -completed $DONEDIR -log_dir $LOGDIR
+bin/fileconverter -alsologtostderr -log_dir $LOGDIR
 
