@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"io/ioutil"
 	"os"
 	"os/signal"
@@ -113,27 +114,31 @@ func processExistingInput(inPath string, outPath string, errPath string, complPa
 }
 
 func main() {
-	var inputPath string
-	var outputPath string
-	var errorPath string
-	var completedPath string
-	flag.StringVar(&inputPath, "input", "", "full path to input directory")
-	flag.StringVar(&outputPath, "output", "", "full path to output directory")
-	flag.StringVar(&errorPath, "errors", "", "full path to error directory")
-	flag.StringVar(&completedPath, "completed", "", "full path to completed directory")
+	config, err := GetConfigFromFile("config.json")
+	if err != nil {
+		fmt.Printf("ERROR: cannot process config.json: %s", err)
+		os.Exit(1)
+	}
+
+	flag.StringVar(&config.InputPath, "input", config.InputPath, "full path to input directory")
+	flag.StringVar(&config.OutputPath, "output", config.OutputPath, "full path to output directory")
+	flag.StringVar(&config.ErrorPath, "errors", config.ErrorPath, "full path to error directory")
+	flag.StringVar(&config.CompletedPath, "completed", config.CompletedPath, "full path to completed directory")
 
 	// NOTE: the glog package also sets some flags.
 	flag.Parse()
 
 	// required args
-	if inputPath == "" || outputPath == "" || errorPath == "" || completedPath == "" {
-		glog.Fatal("4 options must be supplied: -input -output -errors -completed")
+	if !config.IsValid() {
+		glog.Error("4 options must be supplied in config.json or on command line: ")
+		glog.Error("	see config.json or supply")
+		glog.Fatal(" 	command line: -input -output -errors -completed")
 		os.Exit(1)
 	}
 
-	glog.Info("using input directory: ", inputPath)
-	processExistingInput(inputPath, outputPath, errorPath, completedPath)
+	glog.Info("using input directory: ", config.InputPath)
+	processExistingInput(config.InputPath, config.OutputPath, config.ErrorPath, config.CompletedPath)
 	// watch the input directory
 	// blocks until process receives appropriate signal
-	watchForNewInput(inputPath, outputPath, errorPath, completedPath)
+	watchForNewInput(config.InputPath, config.OutputPath, config.ErrorPath, config.CompletedPath)
 }
