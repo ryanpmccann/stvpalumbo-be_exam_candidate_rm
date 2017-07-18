@@ -109,7 +109,7 @@ func (c *csvFileProcessor) Process() {
 	if err := c.processErrors(); err == nil {
 		glog.Infof("successfully processed: %s: lines[%d] errors[%d].", c.InputFilePath, c.linesRead, len(c.Errors))
 	} else {
-		glog.Errorf("failed to produce error file. processed: %s: lines[%d] errors[%d].", c.InputFilePath, c.linesRead, len(c.Errors))
+		glog.Errorf("failed to produce error file[%s]. processed: %s: lines[%d] errors[%d].", err, c.InputFilePath, c.linesRead, len(c.Errors))
 	}
 }
 
