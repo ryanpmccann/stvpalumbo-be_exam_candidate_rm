@@ -126,7 +126,7 @@ func (c *csvFileProcessor) processFile() error {
 
 	outfile, err := os.Create(c.OutputFilePath)
 	if err != nil {
-		msg := fmt.Sprintf("cannot open output file: %s", c.InputFilePath)
+		msg := fmt.Sprintf("cannot open output file: %s", c.OutputFilePath)
 		return errors.New(msg)
 	}
 	defer outfile.Close()
